@@ -5,7 +5,9 @@
     <GROUP id="{7D42C04C-F392-55C6-00FD-EE35F91778FD}" name="Source">
       <FILE id="ktndKX" name="io.cpp" compile="1" resource="0" file="Source/io.cpp"/>
       <FILE id="Scceju" name="io.h" compile="0" resource="0" file="Source/io.h"/>
-      <FILE id="woR9XM" name="Main.cpp" compile="1" resource="0" file="Source/Main.cpp"/>
+      <FILE id="woR9XM" name="main.cpp" compile="1" resource="0" file="Source/main.cpp"/>
+      <FILE id="SFIITs" name="split.cpp" compile="1" resource="0" file="Source/split.cpp"/>
+      <FILE id="RReVGe" name="split.h" compile="0" resource="0" file="Source/split.h"/>
       <FILE id="JPxT4C" name="utils.cpp" compile="1" resource="0" file="Source/utils.cpp"/>
       <FILE id="Lu78cF" name="utils.h" compile="0" resource="0" file="Source/utils.h"/>
     </GROUP>
@@ -13,7 +15,7 @@
   <EXPORTFORMATS>
     <XCODE_MAC targetFolder="Builds/MacOSX" extraCompilerFlags="-I../../thirdparty/install/include"
                externalLibraries="spleeter&#10;spleeter_common&#10;tensorflow.1&#10;tensorflow_framework.1"
-               extraLinkerFlags="-L../../thirdparty/install/lib" postbuildCommand="cp ../../thirdparty/install/lib/libtensorflow.1.dylib $CONFIGURATION_BUILD_DIR&#10;cp ../../thirdparty/install/lib/libtensorflow_framework.1.dylib $CONFIGURATION_BUILD_DIR">
+               extraLinkerFlags="-L../../thirdparty/install/lib" postbuildCommand="cp ../../thirdparty/install/lib/libtensorflow.1.dylib $CONFIGURATION_BUILD_DIR&#10;cp ../../thirdparty/install/lib/libtensorflow_framework.1.dylib $CONFIGURATION_BUILD_DIR&#10;&#10;rm -rf $CONFIGURATION_BUILD_DIR/models&#10;cp -r ../../thirdparty/install/models/default $CONFIGURATION_BUILD_DIR/models&#10;">
       <CONFIGURATIONS>
         <CONFIGURATION isDebug="1" name="Debug" customXcodeFlags="LD_RUNPATH_SEARCH_PATHS=@executable_path"/>
         <CONFIGURATION isDebug="0" name="Release" customXcodeFlags="LD_RUNPATH_SEARCH_PATHS=@executable_path"/>

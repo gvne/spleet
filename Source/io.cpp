@@ -58,6 +58,10 @@ void Write(const Eigen::MatrixXf &data, double sampling_rate,
   auto writer = std::unique_ptr<AudioFormatWriter>(
       format.createWriterFor(output_file.createOutputStream(), sampling_rate,
                              channel_count, 16, StringPairArray(), 0));
+  if (!writer) {
+    err = std::make_error_code(std::errc::io_error);
+    return;
+  }
 
   AudioSampleBuffer buffer(channel_count, frame_count);
   for (auto channel_idx = 0; channel_idx < channel_count; channel_idx++) {
