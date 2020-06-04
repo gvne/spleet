@@ -2,7 +2,7 @@ include(FetchContent)
 
 FetchContent_Declare(spleeterpp
   GIT_REPOSITORY https://github.com/gvne/spleeterpp.git
-  GIT_TAG 1495e1343b054b287e52fdcc03eca310650108a0
+  GIT_TAG cb36570d8fac3f6f9ea7deb2dc9830542ae1edd0
 )
 
 FetchContent_GetProperties(spleeterpp)

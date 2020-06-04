@@ -14,7 +14,7 @@
   </MAINGROUP>
   <EXPORTFORMATS>
     <XCODE_MAC targetFolder="Builds/MacOSX" extraCompilerFlags="-I../../thirdparty/install/include"
-               externalLibraries="spleeter&#10;spleeter_common&#10;tensorflow.1&#10;tensorflow_framework.1"
+               externalLibraries="spleeter&#10;spleeter_common&#10;tensorflow&#10;tensorflow_framework"
                extraLinkerFlags="-L../../thirdparty/install/lib" postbuildCommand="cp ../../thirdparty/install/lib/libtensorflow.1.dylib $CONFIGURATION_BUILD_DIR&#10;cp ../../thirdparty/install/lib/libtensorflow_framework.1.dylib $CONFIGURATION_BUILD_DIR&#10;&#10;rm -rf $CONFIGURATION_BUILD_DIR/models&#10;cp -r ../../thirdparty/install/models/default $CONFIGURATION_BUILD_DIR/models&#10;">
       <CONFIGURATIONS>
         <CONFIGURATION isDebug="1" name="Debug" customXcodeFlags="LD_RUNPATH_SEARCH_PATHS=@executable_path"/>
@@ -55,7 +55,9 @@
         <MODULEPATH id="juce_opengl" path="../../../../Applications/JUCE/modules"/>
       </MODULEPATHS>
     </VS2019>
-    <LINUX_MAKE targetFolder="Builds/LinuxMakefile">
+    <LINUX_MAKE targetFolder="Builds/LinuxMakefile" extraCompilerFlags="-I../../thirdparty/install/include"
+                extraLinkerFlags="-L../../thirdparty/install/lib&#10;'-Wl,-rpath,$$ORIGIN/'"
+                externalLibraries="spleeter&#10;spleeter_common&#10;tensorflow&#10;tensorflow_framework">
       <CONFIGURATIONS>
         <CONFIGURATION isDebug="1" name="Debug"/>
         <CONFIGURATION isDebug="0" name="Release"/>
