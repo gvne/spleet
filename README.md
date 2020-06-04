@@ -24,8 +24,11 @@ cmake -GXcode -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=$(pwd)/../instal
 make install
 # Spleet (regenerate and build)
 cd ../../
-/Applications/JUCE/Projucer.app/Contents/MacOS/Projucer --resave spleet.jucer
+~/JUCE/Projucer --resave spleet.jucer
 cd Builds/LinuxMakefile
 make
+# Copy libs and models
 cp ../../thirdparty/install/lib/libtensorflow*.so.1 build/
+rm -rf build/models
+cp -r ../../thirdparty/install/models/default build/models
 ```
