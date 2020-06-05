@@ -32,3 +32,21 @@ cp ../../thirdparty/install/lib/libtensorflow*.so.1 build/
 rm -rf build/models
 cp -r ../../thirdparty/install/models/default build/models
 ```
+
+### Windows (VS2019)
+```bash
+cd thirdparty
+mkdir build && cd build
+cmake -GXcode -DCMAKE_INSTALL_PREFIX=$(pwd)/../install ..
+cmake --build . --config Release --target INSTALL
+# Spleet (regenerate and build)
+cd ../../
+/c/JUCE/Projucer.exe --resave spleet.jucer
+cd Builds/VisualStudio2019/
+start spleet.sln
+# TODO: Build in Release mode
+# Copy dll and models
+cp ../../thirdparty/install/lib/tensorflow.dll x64/Release/ConsoleApp
+rm -rf x64/Release/ConsoleApp/models
+cp -r ../../thirdparty/install/models/default x64/Release/ConsoleApp/models
+```
