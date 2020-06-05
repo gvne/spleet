@@ -41,7 +41,7 @@ Eigen::MatrixXf Stereo(const Eigen::MatrixXf &data) {
     return data;
   }
   // make the mean over rows
-  auto mean = data.array().rowwise().sum() / data.rows();
+  auto mean = data.array().colwise().sum() / data.rows();
 
   // duplicate it twice to get stereo
   Eigen::MatrixXf output(2, data.cols());
