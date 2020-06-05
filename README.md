@@ -20,7 +20,7 @@ open Builds/MacOSX/spleet.xcodeproj
 # Thirdparty
 cd thirdparty
 mkdir build && cd build
-cmake -GXcode -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=$(pwd)/../install ..
+cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=$(pwd)/../install ..
 make install
 # Spleet (regenerate and build)
 cd ../../
@@ -37,7 +37,7 @@ cp -r ../../thirdparty/install/models/default build/models
 ```bash
 cd thirdparty
 mkdir build && cd build
-cmake -GXcode -DCMAKE_INSTALL_PREFIX=$(pwd)/../install ..
+cmake -DCMAKE_INSTALL_PREFIX=$(pwd)/../install ..
 cmake --build . --config Release --target INSTALL
 # Spleet (regenerate and build)
 cd ../../
