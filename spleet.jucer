@@ -3,6 +3,14 @@
 <JUCERPROJECT id="rNsHcU" name="spleet" projectType="consoleapp" jucerVersion="5.4.7">
   <MAINGROUP id="ZHHpPT" name="spleet">
     <GROUP id="{7D42C04C-F392-55C6-00FD-EE35F91778FD}" name="Source">
+      <GROUP id="{9A9B4391-C8F0-2EFA-21AF-EBABD2196DD6}" name="io">
+        <FILE id="ldv7kh" name="output_folder.cpp" compile="1" resource="0"
+              file="Source/output_folder.cpp"/>
+        <FILE id="GkBo1M" name="output_folder.h" compile="0" resource="0" file="Source/output_folder.h"/>
+        <FILE id="l7DS0q" name="input_file.cpp" compile="1" resource="0" file="Source/input_file.cpp"/>
+        <FILE id="wxUkhI" name="input_file.h" compile="0" resource="0" file="Source/input_file.h"/>
+      </GROUP>
+      <FILE id="Tbm3oW" name="constant.h" compile="0" resource="0" file="Source/constant.h"/>
       <FILE id="ktndKX" name="io.cpp" compile="1" resource="0" file="Source/io.cpp"/>
       <FILE id="Scceju" name="io.h" compile="0" resource="0" file="Source/io.h"/>
       <FILE id="woR9XM" name="main.cpp" compile="1" resource="0" file="Source/main.cpp"/>

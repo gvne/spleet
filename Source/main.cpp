@@ -2,7 +2,9 @@
 #include <cxxopts.hpp>
 #include "spleeter/spleeter.h"
 
-#include "io.h"
+//#include "io.h"
+#include "input_file.h"
+#include "output_folder.h"
 #include "utils.h"
 #include "split.h"
 
@@ -38,16 +40,16 @@ int main(int argc, char *argv[]) {
     separation_type = spleeter::FiveStems;
     break;
   default:
-    std::cout << "Invalid stem count. Only 2/4/5 supported." << std::endl;
-    return 0;
+    std::cerr << "Invalid stem count. Only 2/4/5 supported." << std::endl;
+    return -1;
   }
 
   // validate output directory
   auto output = result["output"].as<std::string>();
   File output_file(output);
   if (!(output_file.exists() && output_file.isDirectory())) {
-    std::cout << "Output folder " << output << " does not seem to exist" << std::endl;
-    return 0;
+    std::cerr << "Output folder " << output << " does not seem to exist" << std::endl;
+    return -1;
   }
 
   // Initialize spleeter
@@ -59,30 +61,34 @@ int main(int argc, char *argv[]) {
           .toStdString();
   spleeter::Initialize(model_path, {separation_type}, err);
   if (err) {
-    std::cout << "Couldn't initialize spleeter" << std::endl;
-    return 0;
+    std::cerr << "Couldn't initialize spleeter" << std::endl;
+    return -1;
   }
 
-  // Read input file
-  double input_sampling_rate = 0;
-  const double process_sampling_rate = 44100;
-  Eigen::MatrixXf data;
-  Read(result["input"].as<std::string>(), &data, &input_sampling_rate, err);
+  InputFile input(result["input"].as<std::string>());
+  input.Open(err);
   if (err) {
-    std::cout << "Couldn't read source file" << std::endl;
-    return 0;
+    std::cerr << "Couldn't read source file" << std::endl;
+    return -1;
   }
-
-  // resample it and convert it to stereo
-  spleeter::Waveform waveform =
-      Resample(Stereo(data), input_sampling_rate, process_sampling_rate);
-
-  // process and export
-  Split(waveform, separation_type, output, process_sampling_rate, err);
-  if (err) {
-    std::cout << "Export failed" << std::endl;
-    return 0;
+  
+  OutputFolder output_folder(output);
+  
+  while (true) {
+    auto data = input.Read();
+    if (data.cols() == 0) {
+      return 0;
+    }
+    auto result = Split(data, separation_type, err);
+    if (err) {
+      std::cerr << "Failed to split" << std::endl;
+      return -1;
+    }
+    output_folder.Write(result, err);
+    if (err) {
+      std::cerr << "Failed to export" << std::endl;
+      return -1;
+    }
   }
-
   return 0;
 }

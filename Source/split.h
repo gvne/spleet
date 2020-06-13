@@ -10,8 +10,9 @@
 
 #pragma once
 
+#include <map>
 #include "spleeter/spleeter.h"
 
-void Split(const spleeter::Waveform &waveform, spleeter::SeparationType type,
-           const std::string &destination, double sampling_rate,
-           std::error_code &err);
+std::map<std::string, spleeter::Waveform>
+Split(const spleeter::Waveform &waveform, spleeter::SeparationType type,
+      std::error_code &err);

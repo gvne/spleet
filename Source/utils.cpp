@@ -21,16 +21,20 @@ Eigen::MatrixXf Resample(const Eigen::MatrixXf &source, double original,
   LagrangeInterpolator interpolator;
   auto speed_ratio = desired / original;
 
-  Eigen::MatrixXf output(
-      source.rows(), static_cast<int>(floor(source.cols() * speed_ratio + 1)));
+  auto source_frame_count = source.cols();
+  auto desired_frame_count =
+      static_cast<int>(ceil(source_frame_count * speed_ratio));
+  Eigen::MatrixXf output(source.rows(), desired_frame_count);
 
   Eigen::VectorXf input_channel(source.cols());
   Eigen::VectorXf output_channel(output.cols());
   for (auto channel_idx = 0; channel_idx < source.rows(); channel_idx++) {
+    input_channel.array() = source.row(channel_idx).array();
+    auto interpolator_ratio = 1.0 / speed_ratio;
+    interpolator.process(interpolator_ratio, input_channel.data(),
+                         output_channel.data(), output_channel.size());
+    output.row(channel_idx).array() = output_channel.array();
     interpolator.reset();
-    interpolator.process(speed_ratio, input_channel.data(),
-                         output_channel.data(), output_channel.cols());
-    output.row(channel_idx) = output_channel;
   }
 
   return output;
