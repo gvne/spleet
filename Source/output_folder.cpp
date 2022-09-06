@@ -62,9 +62,10 @@ void OutputFolder::Write(const std::map<std::string, spleeter::Waveform> &data,
         output_file.deleteFile();
       }
       WavAudioFormat format;
-      auto writer = std::shared_ptr<AudioFormatWriter>(format.createWriterFor(
-          output_file.createOutputStream(), kProcessSamplingRate, channel_count,
-          16, StringPairArray(), 0));
+        
+      auto writer = std::shared_ptr<AudioFormatWriter>(format.createWriterFor(new FileOutputStream(output_file), kProcessSamplingRate,
+                                                                                channel_count, 16, StringPairArray(), 0));
+        
       writers_[waveform.first] = writer;
       previous_write_[waveform.first] = spleeter::Waveform();
     }
